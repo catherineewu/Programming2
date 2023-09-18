@@ -1,0 +1,21 @@
+cmake_minimum_required(VERSION 3.26)
+project(Test)
+
+set(CMAKE_CXX_STANDARD 17)
+
+add_executable(Test lab3_main_stack.cpp
+        fruit_sale.cpp
+        fruit_sale.h
+        person.h
+        notes_classes.cpp
+        notes_dynamic_memory_heap.cpp
+        notes_big_three_example.cpp
+        notes_big_three.cpp
+        notes_templates.cpp
+        notes_operator_overloading.cpp
+        lab3_original_code.cpp
+        lab3_testing_code.cpp
+        lab3_main_stack.cpp
+        lab3_main_queue.cpp
+        ABS.h
+        ABQ.h)
