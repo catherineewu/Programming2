@@ -18,4 +18,8 @@ add_executable(Test lab3_main_stack.cpp
         lab3_main_stack.cpp
         lab3_main_queue.cpp
         ABS.h
-        ABQ.h)
+        ABQ.h
+        notes_const_keyword.cpp
+        notes_file_io.cpp
+        notes_linked_lists.cpp
+        notes_linked_list_operations.cpp)
