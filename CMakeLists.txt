@@ -22,4 +22,12 @@ add_executable(Test lab3_main_stack.cpp
         notes_const_keyword.cpp
         notes_file_io.cpp
         notes_linked_lists.cpp
-        notes_linked_list_operations.cpp)
+        notes_linked_list_operations.cpp
+        notes_binary_file_io.cpp
+        notes_reading_writing_files.cpp
+        demo_binary_io.cpp
+        personn.h
+        project_1.cpp
+        notes_pointers.cpp
+        project_1_testing.cpp
+)

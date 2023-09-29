@@ -29,7 +29,7 @@ void RemoveNode(Waypoint* target) {
     else {// code for any middle nodes}
 }*/
 
-int main() {
+int main_llo() {
     Waypoint* head = new Waypoint(40, 60);  // create head Node
     head->next = new Waypoint(10, 10);  // create next Node
     Waypoint* currentPoint = head;  // variable currentPoint to iterate through Nodes, copy constructed from head Node

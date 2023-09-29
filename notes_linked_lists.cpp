@@ -74,7 +74,7 @@ int linked_list_main() {
      * Usually contains some data and pointer to 1+ other nodes
      *
      * All linked list operations involve using Node pointers to create, delete, or access existing nodes
-     * (Nodes dynamically allocated adn deallocated)
+     * (Nodes dynamically allocated and deallocated)
  * No random access to any element (unlike arrays)
  * Data accessed LINEARLY, one node at a type, iterating from 1st>2nd>3rd>...>last node
  * Pointers stored to locations of data, each node has POINTER TO NEXT NODE

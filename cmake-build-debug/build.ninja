@@ -139,6 +139,42 @@ build CMakeFiles/Test.dir/notes_linked_list_operations.cpp.o: CXX_COMPILER__Test
   OBJECT_DIR = CMakeFiles/Test.dir
   OBJECT_FILE_DIR = CMakeFiles/Test.dir
 
+build CMakeFiles/Test.dir/notes_binary_file_io.cpp.o: CXX_COMPILER__Test_unscanned_Debug /Users/catherinewu/CLionProjects/Programming2/notes_binary_file_io.cpp || cmake_object_order_depends_target_Test
+  DEP_FILE = CMakeFiles/Test.dir/notes_binary_file_io.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.2 -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/Test.dir
+  OBJECT_FILE_DIR = CMakeFiles/Test.dir
+
+build CMakeFiles/Test.dir/notes_reading_writing_files.cpp.o: CXX_COMPILER__Test_unscanned_Debug /Users/catherinewu/CLionProjects/Programming2/notes_reading_writing_files.cpp || cmake_object_order_depends_target_Test
+  DEP_FILE = CMakeFiles/Test.dir/notes_reading_writing_files.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.2 -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/Test.dir
+  OBJECT_FILE_DIR = CMakeFiles/Test.dir
+
+build CMakeFiles/Test.dir/demo_binary_io.cpp.o: CXX_COMPILER__Test_unscanned_Debug /Users/catherinewu/CLionProjects/Programming2/demo_binary_io.cpp || cmake_object_order_depends_target_Test
+  DEP_FILE = CMakeFiles/Test.dir/demo_binary_io.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.2 -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/Test.dir
+  OBJECT_FILE_DIR = CMakeFiles/Test.dir
+
+build CMakeFiles/Test.dir/project_1.cpp.o: CXX_COMPILER__Test_unscanned_Debug /Users/catherinewu/CLionProjects/Programming2/project_1.cpp || cmake_object_order_depends_target_Test
+  DEP_FILE = CMakeFiles/Test.dir/project_1.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.2 -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/Test.dir
+  OBJECT_FILE_DIR = CMakeFiles/Test.dir
+
+build CMakeFiles/Test.dir/notes_pointers.cpp.o: CXX_COMPILER__Test_unscanned_Debug /Users/catherinewu/CLionProjects/Programming2/notes_pointers.cpp || cmake_object_order_depends_target_Test
+  DEP_FILE = CMakeFiles/Test.dir/notes_pointers.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.2 -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/Test.dir
+  OBJECT_FILE_DIR = CMakeFiles/Test.dir
+
+build CMakeFiles/Test.dir/project_1_testing.cpp.o: CXX_COMPILER__Test_unscanned_Debug /Users/catherinewu/CLionProjects/Programming2/project_1_testing.cpp || cmake_object_order_depends_target_Test
+  DEP_FILE = CMakeFiles/Test.dir/project_1_testing.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.2 -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/Test.dir
+  OBJECT_FILE_DIR = CMakeFiles/Test.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Test
@@ -147,7 +183,7 @@ build CMakeFiles/Test.dir/notes_linked_list_operations.cpp.o: CXX_COMPILER__Test
 #############################################
 # Link the executable Test
 
-build Test: CXX_EXECUTABLE_LINKER__Test_Debug CMakeFiles/Test.dir/lab3_main_stack.cpp.o CMakeFiles/Test.dir/fruit_sale.cpp.o CMakeFiles/Test.dir/notes_classes.cpp.o CMakeFiles/Test.dir/notes_dynamic_memory_heap.cpp.o CMakeFiles/Test.dir/notes_big_three_example.cpp.o CMakeFiles/Test.dir/notes_big_three.cpp.o CMakeFiles/Test.dir/notes_templates.cpp.o CMakeFiles/Test.dir/notes_operator_overloading.cpp.o CMakeFiles/Test.dir/lab3_original_code.cpp.o CMakeFiles/Test.dir/lab3_testing_code.cpp.o CMakeFiles/Test.dir/lab3_main_queue.cpp.o CMakeFiles/Test.dir/notes_const_keyword.cpp.o CMakeFiles/Test.dir/notes_file_io.cpp.o CMakeFiles/Test.dir/notes_linked_lists.cpp.o CMakeFiles/Test.dir/notes_linked_list_operations.cpp.o
+build Test: CXX_EXECUTABLE_LINKER__Test_Debug CMakeFiles/Test.dir/lab3_main_stack.cpp.o CMakeFiles/Test.dir/fruit_sale.cpp.o CMakeFiles/Test.dir/notes_classes.cpp.o CMakeFiles/Test.dir/notes_dynamic_memory_heap.cpp.o CMakeFiles/Test.dir/notes_big_three_example.cpp.o CMakeFiles/Test.dir/notes_big_three.cpp.o CMakeFiles/Test.dir/notes_templates.cpp.o CMakeFiles/Test.dir/notes_operator_overloading.cpp.o CMakeFiles/Test.dir/lab3_original_code.cpp.o CMakeFiles/Test.dir/lab3_testing_code.cpp.o CMakeFiles/Test.dir/lab3_main_queue.cpp.o CMakeFiles/Test.dir/notes_const_keyword.cpp.o CMakeFiles/Test.dir/notes_file_io.cpp.o CMakeFiles/Test.dir/notes_linked_lists.cpp.o CMakeFiles/Test.dir/notes_linked_list_operations.cpp.o CMakeFiles/Test.dir/notes_binary_file_io.cpp.o CMakeFiles/Test.dir/notes_reading_writing_files.cpp.o CMakeFiles/Test.dir/demo_binary_io.cpp.o CMakeFiles/Test.dir/project_1.cpp.o CMakeFiles/Test.dir/notes_pointers.cpp.o CMakeFiles/Test.dir/project_1_testing.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.2
   OBJECT_DIR = CMakeFiles/Test.dir
   POST_BUILD = :
