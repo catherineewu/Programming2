@@ -4,57 +4,40 @@
 #include "LinkedList.h"
 using namespace std;
 
-void TestInsertBeforeAfter();
-void TestInsertAt();
-void TestEqualityOperator();
+void TestRemove();
+void TestRemoveHeadTail();
+void TestOtherRemoval();
+void TestRecursion();
+bool TestClear();
+
 int main()
 {
     int testNum;
     cin >> testNum;
     if (testNum == 1)
-        TestInsertBeforeAfter();
+        TestRemove();
     else if (testNum == 2)
-        TestInsertAt();
-    else if(testNum == 3)
-        TestEqualityOperator();
+        TestRemoveHeadTail();
+    else if (testNum == 3)
+        TestOtherRemoval();
+    else if (testNum == 4)
+        TestRecursion();
+    else if (testNum == 5)
+        if(TestClear()){
+            cout << "The Clear() function works properly" << endl;
+        }
+
+
     return 0;
 }
 
-void TestInsertBeforeAfter()
+void TestRemove()
 {
-    LinkedList<int> data;
-    data.AddTail(10);
-    data.AddHead(9);
-    data.AddTail(11);
-    data.AddHead(8);
-    data.AddTail(12);
-
-    cout << "Initial list: " << endl;
-    data.PrintForward();
-
-    LinkedList<int>::Node * node = data.Find(10);
-    cout << "\nSearching for node with value of 10..." << endl;
-
-    if (node != nullptr)
-    {
-        cout << "Node found! Value: " << node->data << endl;
-        cout << "Prev value: " << node->prev->data << endl;
-        cout << "Next value: " << node->next->data << endl;
-    }
-    else
-        cout << "Error! Returned node was a nullptr.";
-
-    cout << "\nInserting 2048 before node and 4096 after node." << endl;
-    data.InsertBefore(node, 2048);
-    data.InsertAfter(node, 4096);
-    data.PrintForward();
-}
-
-void TestInsertAt()
-{
-    cout << "=====Testing InsertAt() functionality=====" << endl;
+    cout << "=====Testing Remove() functionality=====" << endl;
     LinkedList<string> data;
-    string test = "great benefit linked is the ability to easily into the";
+    string test = "Test RemoveMe to RemoveMe find RemoveMe all RemoveMe matching ";
+    test.append("RemoveMe nodes RemoveMe completed RemoveMe with RemoveMe no ");
+    test.append("RemoveMe \"RemoveMe\" RemoveMe nodes RemoveMe remaining.");
     stringstream x(test);
     string tmp;
     while (getline(x, tmp, ' '))
@@ -62,34 +45,128 @@ void TestInsertAt()
 
     cout << "Initial list: " << endl;
     data.PrintForward();
-    cout << "Node count: " <<  data.NodeCount() << endl;
-
-    cout << "\nInserting words into the list with InsertAt()..." << endl;
-
-    data.InsertAt("One", 0);
-    data.InsertAt("of", 3);
-    data.InsertAt("lists", 5);
-    data.InsertAt("insert", 10);
-    data.InsertAt("nodes", 11);
-    data.InsertAt("list.", 15);
-
+    string val = "RemoveMe";
+    int count = data.Remove(val);
+    cout << "\nRemoving " << val << " from the list." << endl;
+    cout << "Removed " << count << " nodes from the list.\n" << endl;
     data.PrintForward();
-    cout << "Node count: " << data.NodeCount() << endl;
+    cout << "\nNodes removed: " << count << endl;
+
+    count = data.Remove(val);
+    cout << "Removing " << val << " from the list again." << endl;
+    cout << "Nodes removed: " << count << endl;
+
 }
 
-void TestEqualityOperator(){
-    LinkedList<int> a;
-    a.AddHead(5);
-    a.AddHead(20);
-    a.AddHead(39);
+void TestRemoveHeadTail()
+{
+    cout << "=====Testing RemoveHead()/RemoveTail() functionality=====" << endl;
+    LinkedList<int> data;
+    for (unsigned int i = 0; i < 70; i += 5)
+        data.AddTail(i);
 
-    LinkedList<int> b;
-    b.AddHead(5);
-    b.AddHead(20);
-    b.AddHead(39);
+    cout << "Initial list: " << endl;
+    data.PrintForward();
 
-    if (a == b)
-        cout << "Equality check for two identical lists passed." << endl;
+    cout << "Removing 2 Tail and 2 Head Nodes..." << endl;
+    data.RemoveHead();
+    data.RemoveTail();
+    data.RemoveHead();
+    data.RemoveTail();
+    data.PrintForward();
+}
+
+void TestOtherRemoval()
+{
+    cout << "=====Testing RemoveAt() and clearing with RemoveHead()/RemoveTail() functionality=====" << endl;
+    LinkedList<string> data;
+    data.AddTail("Batman");
+    data.AddTail("RemoveMe");
+    data.AddTail("Superman");
+    data.AddTail("RemoveMe");
+    data.AddTail("Wonder Woman");
+    data.AddTail("RemoveMe");
+    data.AddTail("The Flash");
+
+    cout << "Initial list: " << endl;
+    data.PrintForward();
+    cout << "\nRemoving using RemoveAt()..." << endl;
+    data.RemoveAt(1);
+    data.RemoveAt(2);
+    data.RemoveAt(3);
+
+    data.PrintForward();
+
+    cout << "\nAttempting to remove out of range using RemoveAt()..." << endl;
+    if (!data.RemoveAt(100))
+        cout << "Attempt to RemoveAt(100) failed." << endl;
     else
-        cout << "Equality check for two identical lists failed." << endl;
+        cout << "Successfully removed node 100? Weird, there are only 4 nodes..." << endl;
+
+    cout << "\nClearing list using RemoveHead()..." << endl;
+    while (data.RemoveHead()){}
+
+    if (data.NodeCount() == 0)
+        cout << "List is empty!" << endl;
+    else
+        cout << "List not empty!" << endl;
+
+    cout << "Adding additional nodes..." << endl;
+    data.AddTail("Robin");
+    data.AddTail("Batgirl");
+    data.AddTail("Nightwing");
+    data.AddTail("Red Hood");
+    data.AddTail("Bluebird");
+
+    data.PrintForward();
+
+    cout << "Clearing list using RemoveTail()..." << endl;
+    while (data.RemoveTail()) {}
+
+    if (data.NodeCount() == 0)
+        cout << "List is empty!" << endl;
+    else
+        cout << "List not empty!" << endl;
+}
+
+void TestRecursion()
+{
+    LinkedList<int> power2;
+    int val = 2;
+    for (int i = 0; i < 10; i++)
+    {
+        power2.AddTail(val);
+        val *= 2;
+    }
+    cout << "Initial list: " << endl;
+    power2.PrintForward();
+    cout << "Printing recursively forward from 64: " << endl;
+    LinkedList<int>::Node *node = power2.Find(64);
+    power2.PrintForwardRecursive(node);
+
+    cout << "Printing recursively in reverse from 512: " << endl;
+    node = power2.Find(512);
+    power2.PrintReverseRecursive(node);
+}
+
+bool TestClear(){
+    LinkedList<float> data;
+    data.AddHead(1.21f);
+    data.AddHead(3.1f);
+    data.AddHead(4.7f);
+    data.AddHead(12.23f);
+    data.AddHead(7.78f);
+    int nodeCountBefore = data.NodeCount();
+    if (nodeCountBefore == 0)
+    {
+        cout << "Data not properly added to lists, no data present to test clearing.";
+        return false;
+    }
+    data.Clear();
+    if (data.Head() != nullptr || data.Tail() != nullptr || data.NodeCount() != 0)
+    {
+        cout << "List not cleared properly. Did you forget a variable?";
+        return false;
+    }
+    return true;
 }

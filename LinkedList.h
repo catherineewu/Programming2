@@ -135,7 +135,7 @@ public:
                 tail = nullptr;
             }
         }
-    }  // FIXME memory issue
+    }
 
     /** OPERATORS */
     const T& operator[](unsigned int index) const {
@@ -203,7 +203,6 @@ public:
         }
     }
 
-    /**
     void PrintForwardRecursive(const Node* node) const {
         // Parameter is pointer to any starting node
         // From starting node, recursively visit every following node
@@ -227,7 +226,7 @@ public:
             cout << node->data << endl;
             return PrintReverseRecursive(node->prev);
         }
-    }  // FIXME */
+    }  // FIXME
 
     /** ACCESSOR FUNCTIONS */
     unsigned int NodeCount() const {
@@ -362,22 +361,27 @@ public:
 
     void InsertAfter(Node* node, const T& data) {
         // Given pointer to a node, create new node after indicated node
-        Node* currentNode = this->head;
-        while (node != currentNode) {
-            currentNode = currentNode->next;
+        Node* store_next = node->next;
+        Node* new_node = new Node(data);
+        node->next = new_node;
+        new_node->prev = node;
+        new_node->next = store_next;
+        if (store_next) {
+            store_next->prev = new_node;
         }
-        Node* store_next = currentNode->next;
-        currentNode->next = new Node(data);
-        currentNode->next->prev = currentNode;
-        currentNode->next->next = store_next;
+
 
         this->_size += 1;
-    }  // FIXME memory issue
+    }
     void InsertBefore(Node* &node, const T& data) {
         // Given pointer to a node, create new node before indicated node
-        InsertAfter(node->prev, data);
+        if (node == head) {
+            AddHead(data);
+        } else {
+            InsertAfter(node->prev, data);
+        }
         this->_size += 1;
-    }  // FIXME memory issue
+    }
     void InsertAt(const T& data, unsigned int index) {
         // Create node at given index position (ex: at index 2, is 3rd node)
         if (index > this->_size) {
@@ -396,6 +400,118 @@ public:
             }
             InsertAfter(currentNode, data);
         }
-    }  // FIXME memory issue
+    }
 
+
+    /** REMOVAL OPERATIONS */
+    bool RemoveHead() {
+        if (this->_size == 0) {
+            return false;
+        }
+        else if (this->_size == 1) {
+            delete head;
+            head = nullptr;
+            this->_size -= 1;
+            return true;
+        }
+        else {
+            Node *newHead = this->head->next;
+            delete head;
+            head = newHead;
+            head->prev = nullptr;
+            this->_size -= 1;
+            return true;
+        }
+    }  // FIXME
+    bool RemoveTail() {
+        if (this->_size == 0) {
+            return false;
+        }
+        else if (this->_size == 1) {
+            delete tail;
+            tail = nullptr;
+            this->_size -= 1;
+            return true;
+        }
+        else {
+            Node* newTail = this->tail->prev;
+            delete tail;
+            tail = newTail;
+            tail->next = nullptr;
+            this->_size -= 1;
+            return true;
+        }
+    }  // FIXME
+    unsigned int Remove(const T& data) {
+        unsigned int removals = 0;
+        Node* currentNode = this->head;
+        Node* priorNode = nullptr;
+        Node* followingNode = nullptr;
+        while (currentNode != nullptr) {
+            if (currentNode->data == data) {
+                priorNode = currentNode->prev;
+                followingNode = currentNode->next;
+                priorNode->next = followingNode;
+                followingNode->prev = priorNode;
+                delete currentNode;
+                currentNode = followingNode;
+                priorNode = nullptr;
+                followingNode = nullptr;
+                this->_size -= 1;
+                removals += 1;
+            }
+            else {
+                currentNode = currentNode->next;
+            }
+        }
+        return removals;
+    }  // FIXME
+    bool RemoveAt(unsigned int index) {
+        if (this->_size == 0) {
+            return false;
+        }
+        else if (index >= this->_size) {
+            return false;
+        }
+        else {
+            if (index == 0) {
+                RemoveHead();
+            }
+            else if (index == this->_size - 1) {
+                RemoveTail();
+            }
+            else {
+                Node* currentNode = this->head;
+                for (unsigned int i=0;i<index;i++) {
+                    currentNode = currentNode->next;
+                }
+                Node* priorNode = nullptr;
+                Node* followingNode = nullptr;
+                priorNode = currentNode->prev;
+                followingNode = currentNode->next;
+                priorNode->next = followingNode;
+                followingNode->prev = priorNode;
+                delete currentNode;
+                priorNode = nullptr;
+                followingNode = nullptr;
+                this->_size -= 1;
+            }
+            return true;
+        }
+    }  // FIXME
+    void Clear() {
+        Node* currentNode = this->head;  // currentNode is temp. variable that iterates through nodes
+        while (currentNode != nullptr) {
+            if (currentNode->next != nullptr) {
+                currentNode = currentNode->next;
+                delete currentNode->prev;
+            } else {
+                delete currentNode;
+                currentNode = nullptr;
+                head = nullptr;
+                tail = nullptr;
+            }
+        }
+        this->_size = 0;
+    }  // FIXME
 };
