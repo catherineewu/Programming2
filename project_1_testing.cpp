@@ -37,7 +37,7 @@ using namespace std;
  *
  */
 
-int main() {
+int main_test() {
     // Testing Basics
     LinkedList<int> LLI;
     int IA[] = {0,2,4,2,0};

@@ -35,25 +35,9 @@ public:
         _copy = false;
         // cout << "default constructor called" << endl;
     }
-    /** SHALLOW COPY: LinkedList(const LinkedList<T>& rhs) {
-        // Copy constructor
-        // cout << "copy constructor called" << endl;
-        this->_copy = true;
-        this->_size = rhs._size;
-        this->head = rhs.head;
-        this->tail = rhs.tail;
-
-        Node* currentNode = rhs.head;
-        Node* copyNode = this->head;
-        while (currentNode->next != nullptr) {
-            copyNode->next = currentNode->next;
-            copyNode->prev = currentNode->prev;
-            currentNode = currentNode->next;
-            copyNode = copyNode->next;
-        }
-    }*/
     LinkedList(const LinkedList<T>& rhs) {
         Node* currentNode = this->head;  // currentNode is temp. variable that iterates through nodes
+
         while (currentNode != nullptr) {
             if (currentNode->next != nullptr) {
                 currentNode = currentNode->next;
@@ -71,7 +55,6 @@ public:
         this->_copy = true;
         this->head = nullptr;
         this->tail = nullptr;
-
         currentNode = rhs.head;
         while (currentNode != nullptr) {
             this->AddTail(currentNode->data);
@@ -80,6 +63,7 @@ public:
     }
     LinkedList<T>& operator=(const LinkedList<T>& rhs) {
         Node* currentNode = this->head;  // currentNode is temp. variable that iterates through nodes
+
         while (currentNode != nullptr) {
             if (currentNode->next != nullptr) {
                 currentNode = currentNode->next;
@@ -91,6 +75,7 @@ public:
                 tail = nullptr;
             }
         }
+
         // Copy assignment operator
         // cout << "copy assignment operator called" << endl;
         _size = 0;
@@ -150,13 +135,13 @@ public:
                 tail = nullptr;
             }
         }
-    }  // FIXME (not checked for memory leak)
+    }  // FIXME memory issue
 
     /** OPERATORS */
     const T& operator[](unsigned int index) const {
         // Const version: Overload subscript operator, returns data from index-th node
         // Throws out_of_range exception for invalid index
-        cout << "const operator[] called" << endl;
+        // cout << "const operator[] called" << endl;
         if (index >= _size) {
             throw out_of_range("Index out of range.");
         }
@@ -165,11 +150,11 @@ public:
             currentNode = currentNode->next;
         }
         return currentNode->data;
-    }  // FIXME (using const)
+    }
     T& operator[](unsigned int index) {
         // Overload subscript operator, returns data from index-th node
         // Throws out_of_range exception for invalid index
-        cout << "operator[] called" << endl;
+        // cout << "operator[] called" << endl;
         if (index >= _size) {
             throw out_of_range("Index out of range.");
         }
@@ -180,18 +165,17 @@ public:
         return currentNode->data;
     }
 
-/**
     bool operator==(const LinkedList<T>& rhs) const {
         // Overloaded equality operator
         // Is listA equal to listB (each node == to corresponding node of other)?
-        cout << "bool operator called" << endl;
+        // cout << "bool operator called" << endl;
         if (this->_size != rhs._size) {
             return false;
         }
         Node* currentNode = this->head;
         Node* compareNode = rhs.head;
         while (currentNode != nullptr) {
-            if (currentNode->_data != compareNode->_data) {
+            if (currentNode->data != compareNode->data) {
                 return false;
             }
             currentNode = currentNode->next;
@@ -199,7 +183,7 @@ public:
         }
         return true;
     }  // FIXME
- */
+
 
     /** BEHAVIORS */
     void PrintForward() const {
@@ -225,11 +209,11 @@ public:
         // From starting node, recursively visit every following node
         // Forward order, print values of nodes
         if (node->next == nullptr) {
-            cout << node->_data << endl;
+            cout << node->data << endl;
         }
         else {
-            cout << node->_data << endl;
-            return const PrintForwardRecursive(const node->next);
+            cout << node->data << endl;
+            return PrintForwardRecursive(node->next);
         }
     }  // FIXME
     void PrintReverseRecursive(const Node* node) const {
@@ -237,11 +221,11 @@ public:
         // From starting node, recursively visit every previous node
         // Reverse order, print values of nodes
         if (node->prev == nullptr) {
-            cout << node->_data << endl;
+            cout << node->data << endl;
         }
         else {
-            cout << node->_data << endl;
-            return const PrintReverseRecursive(const node->prev);
+            cout << node->data << endl;
+            return PrintReverseRecursive(node->prev);
         }
     }  // FIXME */
 
@@ -273,7 +257,7 @@ public:
             currentNode = currentNode->next;
         }
         return nullptr;
-    }  // FIXME (using const)
+    }
     Node* Find(const T& data) {
         // Const version
         // Find 1st node with data value matching passed in parameter
@@ -291,7 +275,7 @@ public:
     Node* GetNode(unsigned int index) {
         // Return pointer to node at passed in index
         if (index >= _size) {
-            throw out_of_range("Index out of range.");  // FIXME (message?)
+            throw out_of_range("Index out of range.");
         }
         Node* currentNode = this->head;
         for (unsigned int i=0; i<index; i++) {
@@ -308,7 +292,7 @@ public:
             currentNode = currentNode->next;
         }
         return currentNode;
-    }  // FIXME (using const)
+    }
 
     Node* Head() {
         // Returns head pointer
@@ -324,11 +308,11 @@ public:
     const Node* Head() const {
         // cout << "const head" << endl;
         return head;
-    }  // FIXME (using const)
+    }
     const Node* Tail() const {
         // cout << "const tail" << endl;
         return tail;
-    }  // FIXME (using const)
+    }
 
 
     /** INSERTION OPERATIONS */
@@ -345,7 +329,7 @@ public:
             this->head = this->head->prev;
             // cout << "new head added with data " << this->head->data << endl;
         }
-        _size += 1;
+        this->_size += 1;
     }
     void AddTail(const T& data) {
         // Create new Node at end of list to store the passed in parameter
@@ -359,7 +343,7 @@ public:
             this->tail->next->prev = this->tail;
             this->tail = this->tail->next;
         }
-        _size += 1;
+        this->_size += 1;
     }
 
     void AddNodesHead(T ptr[], unsigned int size) {
@@ -375,5 +359,43 @@ public:
             this->AddTail(ptr[i]);
         }
     }
+
+    void InsertAfter(Node* node, const T& data) {
+        // Given pointer to a node, create new node after indicated node
+        Node* currentNode = this->head;
+        while (node != currentNode) {
+            currentNode = currentNode->next;
+        }
+        Node* store_next = currentNode->next;
+        currentNode->next = new Node(data);
+        currentNode->next->prev = currentNode;
+        currentNode->next->next = store_next;
+
+        this->_size += 1;
+    }  // FIXME memory issue
+    void InsertBefore(Node* &node, const T& data) {
+        // Given pointer to a node, create new node before indicated node
+        InsertAfter(node->prev, data);
+        this->_size += 1;
+    }  // FIXME memory issue
+    void InsertAt(const T& data, unsigned int index) {
+        // Create node at given index position (ex: at index 2, is 3rd node)
+        if (index > this->_size) {
+            throw out_of_range("Index out of range.");
+        }
+        if (index == 0) {
+            AddHead(data);
+        }
+        else if (index == this->_size) {
+            AddTail(data);
+        }
+        else {
+            Node *currentNode = this->head;
+            for (unsigned int i = 0; i < index - 1; i++) {
+                currentNode = currentNode->next;
+            }
+            InsertAfter(currentNode, data);
+        }
+    }  // FIXME memory issue
 
 };
