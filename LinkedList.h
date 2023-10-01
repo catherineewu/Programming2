@@ -53,6 +53,18 @@ public:
         }
     }*/
     LinkedList(const LinkedList<T>& rhs) {
+        Node* currentNode = this->head;  // currentNode is temp. variable that iterates through nodes
+        while (currentNode != nullptr) {
+            if (currentNode->next != nullptr) {
+                currentNode = currentNode->next;
+                delete currentNode->prev;
+            } else {
+                delete currentNode;
+                currentNode = nullptr;
+                head = nullptr;
+                tail = nullptr;
+            }
+        }
         // Copy constructor
         // cout << "copy constructor called" << endl;
         this->_size = 0;
@@ -60,13 +72,25 @@ public:
         this->head = nullptr;
         this->tail = nullptr;
 
-        Node* currentNode = rhs.head;
+        currentNode = rhs.head;
         while (currentNode != nullptr) {
             this->AddTail(currentNode->data);
             currentNode = currentNode->next;
         }
     }
     LinkedList<T>& operator=(const LinkedList<T>& rhs) {
+        Node* currentNode = this->head;  // currentNode is temp. variable that iterates through nodes
+        while (currentNode != nullptr) {
+            if (currentNode->next != nullptr) {
+                currentNode = currentNode->next;
+                delete currentNode->prev;
+            } else {
+                delete currentNode;
+                currentNode = nullptr;
+                head = nullptr;
+                tail = nullptr;
+            }
+        }
         // Copy assignment operator
         // cout << "copy assignment operator called" << endl;
         _size = 0;
@@ -75,7 +99,7 @@ public:
         head = nullptr;
         tail = nullptr;
 
-        Node* currentNode = rhs.head;
+        currentNode = rhs.head;
         while (currentNode != nullptr) {
             this->AddTail(currentNode->data);
             currentNode = currentNode->next;
