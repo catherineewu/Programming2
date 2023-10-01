@@ -48,34 +48,39 @@ int main() {
 
     // Testing Head and Tail
     LinkedList<int>::Node* LLI_head = LLI.Head();
-    cout << "Head is " << (*LLI_head)._data << " at " << LLI_head << endl;
+    cout << "Head is " << (*LLI_head).data << " at " << LLI_head << endl;
     LinkedList<int>::Node* LLI_tail = LLI.Tail();
-    cout << "Tail is " << (*LLI_tail)._data << " at " << LLI_tail << endl;
+    cout << "Tail is " << (*LLI_tail).data << " at " << LLI_tail << endl;
 
     // Testing FindAll
     cout << "Testing FindAll" << endl;
     vector<LinkedList<int>::Node*> zeros;
     LLI.FindAll(zeros, 0);
-    cout << "1st " << (*zeros[0])._data << ": " << zeros[0] << endl;
-    cout << "2nd " << (*zeros[1])._data << ": " << zeros[1] << endl;
-    cout << "3rd " << (*zeros[2])._data << ": " << zeros[2] << endl;
+    cout << "1st " << (*zeros[0]).data << ": " << zeros[0] << endl;
+    cout << "2nd " << (*zeros[1]).data << ": " << zeros[1] << endl;
+    cout << "3rd " << (*zeros[2]).data << ": " << zeros[2] << endl;
 
     // Testing Find
     cout << "Testing Find" << endl;
     LinkedList<int>::Node* first_zero = LLI.Find(0);
-    cout << "1st " << (*first_zero)._data << ": " << first_zero << endl;
+    cout << "1st " << (*first_zero).data << ": " << first_zero << endl;
     LinkedList<int>::Node* first_four = LLI.Find(4);
-    cout << "1st " << (*first_four)._data << ": " << first_four << endl;
+    cout << "1st " << (*first_four).data << ": " << first_four << endl;
+
+    // Testing [] Operator
+    cout << "Testing [] Operator" << endl;
+    int value = LLI[2];
+    cout << "LLI[2] = " << value << endl;
 
     // Testing GetNode
     cout << "Testing GetNode" << endl;
     LinkedList<int>::Node* index_2_value = LLI.GetNode(2);
-    cout << "Value at index 2: " << (*index_2_value)._data << endl;
+    cout << "Value at index 2: " << (*index_2_value).data << endl;
     LinkedList<int>::Node* index_5_value = LLI.GetNode(5);
-    cout << "Value at index 5: " << (*index_5_value)._data << endl;
+    cout << "Value at index 5: " << (*index_5_value).data << endl;
     // out_of_range Error Generator
     /**LinkedList<int>::Node* index_6_value = LLI.GetNode(6);
-    cout << "Value at index 6: " << (*index_6_value)._data << endl;*/
+    cout << "Value at index 6: " << (*index_6_value).data << endl;*/
 
     // Testing copy constructor
     LinkedList<int> LLI_copy = LLI;

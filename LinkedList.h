@@ -11,15 +11,15 @@ class LinkedList {
 public:
     class Node {
     public:
-        T _data;
-        Node* _next = nullptr;
-        Node* _previous = nullptr;
+        T data;
+        Node* next = nullptr;
+        Node* prev = nullptr;
         Node() {
             // cout << "node default constructor" << endl;
         }
 
         explicit Node(T data) {
-            _data = data;
+            this->data = data;
             // cout << "node param constructor" << endl;
         }
     };
@@ -27,7 +27,7 @@ public:
     unsigned int _size = 0;
     Node* head = nullptr;
     Node* tail = nullptr;
-    bool _copy;
+    bool _copy = false;
 
     /** CONSTRUCTORS / DESTRUCTOR */
     LinkedList() {
@@ -35,7 +35,7 @@ public:
         _copy = false;
         // cout << "default constructor called" << endl;
     }
-    LinkedList(const LinkedList<T>& rhs) {
+    /** SHALLOW COPY: LinkedList(const LinkedList<T>& rhs) {
         // Copy constructor
         // cout << "copy constructor called" << endl;
         this->_copy = true;
@@ -43,43 +43,55 @@ public:
         this->head = rhs.head;
         this->tail = rhs.tail;
 
-        Node* currentNode = head;
+        Node* currentNode = rhs.head;
         Node* copyNode = this->head;
-        while (currentNode->_next != nullptr) {
-            copyNode->_next = currentNode->_next;
-            copyNode->_previous = currentNode->_previous;
-            currentNode = currentNode->_next;
-            copyNode = copyNode->_next;
+        while (currentNode->next != nullptr) {
+            copyNode->next = currentNode->next;
+            copyNode->prev = currentNode->prev;
+            currentNode = currentNode->next;
+            copyNode = copyNode->next;
+        }
+    }*/
+    LinkedList(const LinkedList<T>& rhs) {
+        // Copy constructor
+        // cout << "copy constructor called" << endl;
+        this->_size = 0;
+        this->_copy = true;
+        this->head = nullptr;
+        this->tail = nullptr;
+
+        Node* currentNode = rhs.head;
+        while (currentNode != nullptr) {
+            this->AddTail(currentNode->data);
+            currentNode = currentNode->next;
         }
     }
     LinkedList<T>& operator=(const LinkedList<T>& rhs) {
         // Copy assignment operator
         // cout << "copy assignment operator called" << endl;
         _size = 0;
+        _copy = false;
 
         head = nullptr;
         tail = nullptr;
 
         Node* currentNode = rhs.head;
         while (currentNode != nullptr) {
-            this->AddTail(currentNode->_data);
-            currentNode = currentNode->_next;
+            this->AddTail(currentNode->data);
+            currentNode = currentNode->next;
         }
         return *this;
     }
     ~LinkedList() {
         // Destructor
         // cout << "destructor called" << endl;
-        if (this->_copy == true) {
+        /**if (this->_copy == true) {
             // cout << "constructed copy - destructor skipped" << endl;
-            head = nullptr;
-            tail = nullptr;
-        } else {
-            Node* currentNode = this->head;  // currentNode is temp. variable that iterates through nodes
+            Node* currentNode = this->head;
             while (currentNode != nullptr) {
-                if (currentNode->_next != nullptr) {
-                    currentNode = currentNode->_next;
-                    delete currentNode->_previous;
+                if (currentNode->prev != nullptr) {
+                    currentNode = currentNode->prev;
+                    delete currentNode->next;
                 } else {
                     delete currentNode;
                     currentNode = nullptr;
@@ -87,11 +99,36 @@ public:
                     tail = nullptr;
                 }
             }
+        } else {
+            Node* currentNode = this->head;  // currentNode is temp. variable that iterates through nodes
+            while (currentNode != nullptr) {
+                if (currentNode->next != nullptr) {
+                    currentNode = currentNode->next;
+                    delete currentNode->prev;
+                } else {
+                    delete currentNode;
+                    currentNode = nullptr;
+                    head = nullptr;
+                    tail = nullptr;
+                }
+            }
+        }*/
+        Node* currentNode = this->head;  // currentNode is temp. variable that iterates through nodes
+        while (currentNode != nullptr) {
+            if (currentNode->next != nullptr) {
+                currentNode = currentNode->next;
+                delete currentNode->prev;
+            } else {
+                delete currentNode;
+                currentNode = nullptr;
+                head = nullptr;
+                tail = nullptr;
+            }
         }
     }  // FIXME (not checked for memory leak)
 
-    /** OPERATORS */ /**
-    const T& LinkedList::operator[]=(unsigned int index) const {
+    /** OPERATORS */
+    const T& operator[](unsigned int index) const {
         // Const version: Overload subscript operator, returns data from index-th node
         // Throws out_of_range exception for invalid index
         cout << "const operator[] called" << endl;
@@ -102,8 +139,8 @@ public:
         for (unsigned int i=0; i<index; i++) {
             currentNode = currentNode->next;
         }
-        return currentNode->_data;
-    }  // FIXME
+        return currentNode->data;
+    }  // FIXME (using const)
     T& operator[](unsigned int index) {
         // Overload subscript operator, returns data from index-th node
         // Throws out_of_range exception for invalid index
@@ -115,9 +152,10 @@ public:
         for (unsigned int i=0; i<index; i++) {
             currentNode = currentNode->next;
         }
-        return currentNode->_data;
-    }  // FIXME
+        return currentNode->data;
+    }
 
+/**
     bool operator==(const LinkedList<T>& rhs) const {
         // Overloaded equality operator
         // Is listA equal to listB (each node == to corresponding node of other)?
@@ -131,8 +169,8 @@ public:
             if (currentNode->_data != compareNode->_data) {
                 return false;
             }
-            currentNode = currentNode->_next;
-            compareNode = compareNode->_next;
+            currentNode = currentNode->next;
+            compareNode = compareNode->next;
         }
         return true;
     }  // FIXME
@@ -143,16 +181,16 @@ public:
         // PRINTFORWARD: Iterate through all nodes and print values in order
         Node* currentNode = this->head;  // currentNode is temp. variable that iterates through nodes
         while (currentNode != nullptr) {
-            cout << currentNode->_data << endl;
-            currentNode = currentNode->_next;
+            cout << currentNode->data << endl;
+            currentNode = currentNode->next;
         }
     }
     void PrintReverse() const {
         // PRINTREVERSE: Iterate backwards through nodes and print values in reverse order
         Node* currentNode = this->tail;  // currentNode is temp. variable that iterates through nodes
         while (currentNode != nullptr) {
-            cout << currentNode->_data << endl;
-            currentNode = currentNode->_previous;
+            cout << currentNode->data << endl;
+            currentNode = currentNode->prev;
         }
     }
 
@@ -161,24 +199,24 @@ public:
         // Parameter is pointer to any starting node
         // From starting node, recursively visit every following node
         // Forward order, print values of nodes
-        if (node->_next == nullptr) {
+        if (node->next == nullptr) {
             cout << node->_data << endl;
         }
         else {
             cout << node->_data << endl;
-            return const PrintForwardRecursive(const node->_next);
+            return const PrintForwardRecursive(const node->next);
         }
     }  // FIXME
     void PrintReverseRecursive(const Node* node) const {
         // Parameter is pointer to any starting node
         // From starting node, recursively visit every previous node
         // Reverse order, print values of nodes
-        if (node->_previous == nullptr) {
+        if (node->prev == nullptr) {
             cout << node->_data << endl;
         }
         else {
             cout << node->_data << endl;
-            return const PrintReverseRecursive(const node->_previous);
+            return const PrintReverseRecursive(const node->prev);
         }
     }  // FIXME */
 
@@ -192,10 +230,10 @@ public:
         // Store pointer to node in passed in vector (output parameter)
         Node* currentNode = this->head;
         while (currentNode != nullptr) {
-            if (currentNode->_data == value) {
+            if (currentNode->data == value) {
                 outData.push_back(currentNode);
             }
-        currentNode = currentNode->_next;
+        currentNode = currentNode->next;
         }
     }
 
@@ -204,7 +242,7 @@ public:
         // Return pointer to that node, or nullptr if none matching found
         Node* currentNode = this->head;
         while (currentNode != nullptr) {
-            if (currentNode->_data == data) {
+            if (currentNode->data == data) {
                 return currentNode;
             }
             currentNode = currentNode->next;
@@ -217,10 +255,10 @@ public:
         // Return pointer to that node, or nullptr if none matching found
         Node* currentNode = this->head;
         while (currentNode != nullptr) {
-            if (currentNode->_data == data) {
+            if (currentNode->data == data) {
                 return currentNode;
             }
-            currentNode = currentNode->_next;
+            currentNode = currentNode->next;
         }
         return nullptr;
     }
@@ -232,7 +270,7 @@ public:
         }
         Node* currentNode = this->head;
         for (unsigned int i=0; i<index; i++) {
-            currentNode = currentNode->_next;
+            currentNode = currentNode->next;
         }
         return currentNode;
     }
@@ -242,7 +280,7 @@ public:
         }
         Node* currentNode = this->head;
         for (unsigned int i=0; i<index; i++) {
-            currentNode = currentNode->_next;
+            currentNode = currentNode->next;
         }
         return currentNode;
     }  // FIXME (using const)
@@ -275,12 +313,12 @@ public:
             // Create first node
             this->head = new Node(data);
             this->tail = this->head;
-            // cout << "first node added with data " << this->head->_data << endl;
+            // cout << "first node added with data " << this->head->data << endl;
         } else {
-            this->head->_previous = new Node(data);
-            this->head->_previous->_next = this->head;
-            this->head = this->head->_previous;
-            // cout << "new head added with data " << this->head->_data << endl;
+            this->head->prev = new Node(data);
+            this->head->prev->next = this->head;
+            this->head = this->head->prev;
+            // cout << "new head added with data " << this->head->data << endl;
         }
         _size += 1;
     }
@@ -290,11 +328,11 @@ public:
             // Create first node
             this->head = new Node(data);
             this->tail = this->head;
-            // cout << "first node added with data " << this->head->_data << endl;
+            // cout << "first node added with data " << this->head->data << endl;
         } else {
-            this->tail->_next = new Node(data);
-            this->tail->_next->_previous = this->tail;
-            this->tail = this->tail->_next;
+            this->tail->next = new Node(data);
+            this->tail->next->prev = this->tail;
+            this->tail = this->tail->next;
         }
         _size += 1;
     }
@@ -312,7 +350,5 @@ public:
             this->AddTail(ptr[i]);
         }
     }
-
-
 
 };
