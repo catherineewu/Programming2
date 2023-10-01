@@ -2,6 +2,7 @@
 #include <string>
 #include <sstream>
 #include <cstring>
+#include <vector>
 #pragma once
 using namespace std;
 
@@ -11,251 +12,307 @@ public:
     class Node {
     public:
         T _data;
-        Node* _next;
-        Node* _previous;
+        Node* _next = nullptr;
+        Node* _previous = nullptr;
         Node() {
-            _next = nullptr;
-            _previous = nullptr;
             // cout << "node default constructor" << endl;
         }
 
         explicit Node(T data) {
             _data = data;
-            _next = nullptr;
-            _previous = nullptr;
             // cout << "node param constructor" << endl;
         }
     };
 
-    int _size;
-    Node* head;
-    Node* tail;
+    unsigned int _size = 0;
+    Node* head = nullptr;
+    Node* tail = nullptr;
+    bool _copy;
 
-    // CONSTRUCTORS
-    // Default Constructor
+    /** CONSTRUCTORS / DESTRUCTOR */
     LinkedList() {
+        // Default Constructor
+        _copy = false;
+        // cout << "default constructor called" << endl;
+    }
+    LinkedList(const LinkedList<T>& rhs) {
+        // Copy constructor
+        // cout << "copy constructor called" << endl;
+        this->_copy = true;
+        this->_size = rhs._size;
+        this->head = rhs.head;
+        this->tail = rhs.tail;
+
+        Node* currentNode = head;
+        Node* copyNode = this->head;
+        while (currentNode->_next != nullptr) {
+            copyNode->_next = currentNode->_next;
+            copyNode->_previous = currentNode->_previous;
+            currentNode = currentNode->_next;
+            copyNode = copyNode->_next;
+        }
+    }
+    LinkedList<T>& operator=(const LinkedList<T>& rhs) {
+        // Copy assignment operator
+        // cout << "copy assignment operator called" << endl;
         _size = 0;
-    }
-    // Destructor
-    ~LinkedList() {
-        Node* currentNode = this->head;  // currentNode is temp. variable that iterates through nodes
-        Node* nextNode = currentNode;
-        for (int i=0;i<_size;i++) {
-            currentNode = nextNode;
-            nextNode = currentNode->_next;
-            // cout << "deleting node with value " << currentNode->_data << endl;
-            delete[] currentNode;
-        }
-    }
 
-    // INSERTION OPERATIONS
-    // Create new Node at front of list to store the passed in parameter
-    void AddHead(T data) {
-        if (_size == 0) {
-            // Create first node
-            this->head = new Node(data);
-            this->head->_previous = nullptr;
-            this->head->_next = nullptr;
-            this->tail = this->head;
-            // cout << "first node added with data " << this->head->_data << endl;
-        } else {
-            this->head->_previous = new Node(data);
-            this->head->_previous->_previous = nullptr;
-            this->head->_previous->_next = this->head;
-            this->head = this->head->_previous;
-            // cout << "new head added with data " << this->head->_data << endl;
-        }
-        _size += 1;
-    }
+        head = nullptr;
+        tail = nullptr;
 
-    // Create new Node at end of list to store the passed in parameter
-    void AddTail(T data) {
-        if (_size == 0) {
-            // Create first node
-            this->head = new Node(data);
-            this->head->_previous = nullptr;
-            this->head->_next = nullptr;
-            this->tail = this->head;
-            // cout << "first node added with data " << this->head->_data << endl;
-        } else {
-            this->tail->_next = new Node(data);
-            this->tail->_next->_previous = this->tail;
-            this->tail->_next->_next = nullptr;
-            this->tail = this->tail->_next;
-            // cout << "add tail of position " << _size + 1 << " with value " << data << endl;
-        }
-        _size += 1;
-    }
-
-    // Given an array of values, insert a node for each
-    // of those at the beginning list in original order.
-    void AddNodesHead(T ptr[], int size) {
-        for (int i=(size-1); i>=0; i--) {
-            this->AddHead(ptr[i]);
-        }
-        // cout << "finished adding array to head" << endl;
-    }
-    // Same as for AddNodesHead, but at end of list
-    void AddNodesTail(T ptr[], int size) {
-        for (int i=0; i<size; i++) {
-            this->AddTail(ptr[i]);
-        }
-        // cout << "finished adding array to tail" << endl;
-    }
-
-    // GET INFORMATION ABOUT CONTAINER
-    int NodeCount() {
-        return _size;
-    }
-
-    // SEE DATA IN CONTAINER
-    // Iterate through all nodes and print values in order
-    void PrintForward() {
-        Node* currentNode = this->head;  // currentNode is temp. variable that iterates through nodes
-        for (int i=0;i<_size;i++) {
-            cout << currentNode->_data << endl;
+        Node* currentNode = rhs.head;
+        while (currentNode != nullptr) {
+            this->AddTail(currentNode->_data);
             currentNode = currentNode->_next;
         }
+        return *this;
     }
-    // Iterate backwards through nodes and print values in reverse order
-    void PrintReverse() {
-        Node* currentNode = this->tail;  // currentNode is temp. variable that iterates through nodes
-        for (int i=0; i<_size; i++) {
-            cout << currentNode->_data << endl;
-            currentNode = currentNode->_previous;
-        }
-    }
-
-};
-
-template <>
-class LinkedList<string> {
-public:
-    class Node {
-    public:
-        char* _data;
-        int _length;
-        Node* _next;
-        Node* _previous;
-        Node() {
-            _next = nullptr;
-            _previous = nullptr;
-            // cout << "node default constructor" << endl;
-        }
-
-        explicit Node(string data) {
-            _length = data.length();
-            _data = new char[_length];
-            for (int i=0;i<_length;i++) {
-                _data[i] = data[i];
+    ~LinkedList() {
+        // Destructor
+        // cout << "destructor called" << endl;
+        if (this->_copy == true) {
+            // cout << "constructed copy - destructor skipped" << endl;
+            head = nullptr;
+            tail = nullptr;
+        } else {
+            Node* currentNode = this->head;  // currentNode is temp. variable that iterates through nodes
+            while (currentNode != nullptr) {
+                if (currentNode->_next != nullptr) {
+                    currentNode = currentNode->_next;
+                    delete currentNode->_previous;
+                } else {
+                    delete currentNode;
+                    currentNode = nullptr;
+                    head = nullptr;
+                    tail = nullptr;
+                }
             }
-            _next = nullptr;
-            _previous = nullptr;
-            // cout << "node param constructor" << endl;
         }
-    };
+    }  // FIXME (not checked for memory leak)
 
-    int _size;
-    Node* head;
-    Node* tail;
+    /** OPERATORS */ /**
+    const T& LinkedList::operator[]=(unsigned int index) const {
+        // Const version: Overload subscript operator, returns data from index-th node
+        // Throws out_of_range exception for invalid index
+        cout << "const operator[] called" << endl;
+        if (index >= _size) {
+            throw out_of_range("Index out of range.");
+        }
+        Node* currentNode = this->head;
+        for (unsigned int i=0; i<index; i++) {
+            currentNode = currentNode->next;
+        }
+        return currentNode->_data;
+    }  // FIXME
+    T& operator[](unsigned int index) {
+        // Overload subscript operator, returns data from index-th node
+        // Throws out_of_range exception for invalid index
+        cout << "operator[] called" << endl;
+        if (index >= _size) {
+            throw out_of_range("Index out of range.");
+        }
+        Node* currentNode = this->head;
+        for (unsigned int i=0; i<index; i++) {
+            currentNode = currentNode->next;
+        }
+        return currentNode->_data;
+    }  // FIXME
 
-    // CONSTRUCTORS
-    // Default Constructor
-    LinkedList() {
-        _size = 0;
-    }
-    // Destructor
-    ~LinkedList() {
+    bool operator==(const LinkedList<T>& rhs) const {
+        // Overloaded equality operator
+        // Is listA equal to listB (each node == to corresponding node of other)?
+        cout << "bool operator called" << endl;
+        if (this->_size != rhs._size) {
+            return false;
+        }
+        Node* currentNode = this->head;
+        Node* compareNode = rhs.head;
+        while (currentNode != nullptr) {
+            if (currentNode->_data != compareNode->_data) {
+                return false;
+            }
+            currentNode = currentNode->_next;
+            compareNode = compareNode->_next;
+        }
+        return true;
+    }  // FIXME
+ */
+
+    /** BEHAVIORS */
+    void PrintForward() const {
+        // PRINTFORWARD: Iterate through all nodes and print values in order
         Node* currentNode = this->head;  // currentNode is temp. variable that iterates through nodes
-        Node* nextNode = currentNode;
-        for (int i=0;i<_size;i++) {
-            currentNode = nextNode;
-            nextNode = currentNode->_next;
-            // cout << "deleting node with value " << currentNode->_data << endl;
-            delete[] currentNode->_data;
-            delete[] currentNode;
+        while (currentNode != nullptr) {
+            cout << currentNode->_data << endl;
+            currentNode = currentNode->_next;
+        }
+    }
+    void PrintReverse() const {
+        // PRINTREVERSE: Iterate backwards through nodes and print values in reverse order
+        Node* currentNode = this->tail;  // currentNode is temp. variable that iterates through nodes
+        while (currentNode != nullptr) {
+            cout << currentNode->_data << endl;
+            currentNode = currentNode->_previous;
         }
     }
 
-    // INSERTION OPERATIONS
-    // Create new Node at front of list to store the passed in parameter
-    void AddHead(string data) {
+    /**
+    void PrintForwardRecursive(const Node* node) const {
+        // Parameter is pointer to any starting node
+        // From starting node, recursively visit every following node
+        // Forward order, print values of nodes
+        if (node->_next == nullptr) {
+            cout << node->_data << endl;
+        }
+        else {
+            cout << node->_data << endl;
+            return const PrintForwardRecursive(const node->_next);
+        }
+    }  // FIXME
+    void PrintReverseRecursive(const Node* node) const {
+        // Parameter is pointer to any starting node
+        // From starting node, recursively visit every previous node
+        // Reverse order, print values of nodes
+        if (node->_previous == nullptr) {
+            cout << node->_data << endl;
+        }
+        else {
+            cout << node->_data << endl;
+            return const PrintReverseRecursive(const node->_previous);
+        }
+    }  // FIXME */
+
+    /** ACCESSOR FUNCTIONS */
+    unsigned int NodeCount() const {
+        // Returns number of nodes in list
+        return _size;}
+
+    void FindAll(vector<Node*>& outData, const T& value) const {
+        // Find all noes matching parameter
+        // Store pointer to node in passed in vector (output parameter)
+        Node* currentNode = this->head;
+        while (currentNode != nullptr) {
+            if (currentNode->_data == value) {
+                outData.push_back(currentNode);
+            }
+        currentNode = currentNode->_next;
+        }
+    }
+
+    const Node* Find(const T& data) const {
+        // Find 1st node with data value matching passed in parameter
+        // Return pointer to that node, or nullptr if none matching found
+        Node* currentNode = this->head;
+        while (currentNode != nullptr) {
+            if (currentNode->_data == data) {
+                return currentNode;
+            }
+            currentNode = currentNode->next;
+        }
+        return nullptr;
+    }  // FIXME (using const)
+    Node* Find(const T& data) {
+        // Const version
+        // Find 1st node with data value matching passed in parameter
+        // Return pointer to that node, or nullptr if none matching found
+        Node* currentNode = this->head;
+        while (currentNode != nullptr) {
+            if (currentNode->_data == data) {
+                return currentNode;
+            }
+            currentNode = currentNode->_next;
+        }
+        return nullptr;
+    }
+
+    Node* GetNode(unsigned int index) {
+        // Return pointer to node at passed in index
+        if (index >= _size) {
+            throw out_of_range("Index out of range.");  // FIXME (message?)
+        }
+        Node* currentNode = this->head;
+        for (unsigned int i=0; i<index; i++) {
+            currentNode = currentNode->_next;
+        }
+        return currentNode;
+    }
+    const Node* GetNode(const unsigned int index) const {  // const version
+        if (index >= _size) {
+            throw out_of_range("Index out of range.");
+        }
+        Node* currentNode = this->head;
+        for (unsigned int i=0; i<index; i++) {
+            currentNode = currentNode->_next;
+        }
+        return currentNode;
+    }  // FIXME (using const)
+
+    Node* Head() {
+        // Returns head pointer
+        // cout << "head" << endl;
+        return head;
+    }
+    Node* Tail() {
+        // Returns tail pointer
+        // cout << "tail" << endl;
+        return tail;
+    }
+
+    const Node* Head() const {
+        // cout << "const head" << endl;
+        return head;
+    }  // FIXME (using const)
+    const Node* Tail() const {
+        // cout << "const tail" << endl;
+        return tail;
+    }  // FIXME (using const)
+
+
+    /** INSERTION OPERATIONS */
+    void AddHead(const T& data) {
+        // Create new Node at front of list to store the passed in parameter
         if (_size == 0) {
             // Create first node
             this->head = new Node(data);
-            this->head->_previous = nullptr;
-            this->head->_next = nullptr;
             this->tail = this->head;
             // cout << "first node added with data " << this->head->_data << endl;
         } else {
             this->head->_previous = new Node(data);
-            this->head->_previous->_previous = nullptr;
             this->head->_previous->_next = this->head;
             this->head = this->head->_previous;
             // cout << "new head added with data " << this->head->_data << endl;
         }
         _size += 1;
     }
-
-    // Create new Node at end of list to store the passed in parameter
-    void AddTail(string data) {
+    void AddTail(const T& data) {
+        // Create new Node at end of list to store the passed in parameter
         if (_size == 0) {
             // Create first node
             this->head = new Node(data);
-            this->head->_previous = nullptr;
-            this->head->_next = nullptr;
             this->tail = this->head;
             // cout << "first node added with data " << this->head->_data << endl;
         } else {
             this->tail->_next = new Node(data);
             this->tail->_next->_previous = this->tail;
-            this->tail->_next->_next = nullptr;
             this->tail = this->tail->_next;
-            // cout << "add tail of position " << _size + 1 << " with value " << data << endl;
         }
         _size += 1;
     }
 
-    // Given an array of values, insert a node for each
-    // of those at the beginning list in original order.
-    void AddNodesHead(string ptr[], int size) {
+    void AddNodesHead(T ptr[], unsigned int size) {
+        // Given an array of values, insert a node for each
+        // of those at the beginning list in original order.
         for (int i=(size-1); i>=0; i--) {
             this->AddHead(ptr[i]);
         }
-        // cout << "finished adding array to head" << endl;
     }
-    // Same as for AddNodesHead, but at end of list
-    void AddNodesTail(string ptr[], int size) {
+    void AddNodesTail(T ptr[], unsigned int size) {
+        // Same as for AddNodesHead, but at end of list
         for (int i=0; i<size; i++) {
             this->AddTail(ptr[i]);
         }
-        // cout << "finished adding array to tail" << endl;
     }
 
-    // GET INFORMATION ABOUT CONTAINER
-    int NodeCount() {
-        return _size;
-    }
 
-    // SEE DATA IN CONTAINER
-    // Iterate through all nodes and print values in order
-    void PrintForward() {
-        Node* currentNode = this->head;  // currentNode is temp. variable that iterates through nodes
-        for (int i=0;i<_size;i++) {
-            //for (int i=0;i<currentNode->_length;i++) {
-                //cout << currentNode->_data << endl;
-            //}
-            cout << currentNode->_data << endl;
-            currentNode = currentNode->_next;
-        }
-    }
-    // Iterate backwards through nodes and print values in reverse order
-    void PrintReverse() {
-        Node* currentNode = this->tail;  // currentNode is temp. variable that iterates through nodes
-        for (int i=0; i<_size; i++) {
-            cout << currentNode->_data << endl;
-            currentNode = currentNode->_previous;
-        }
-    }
 
 };
