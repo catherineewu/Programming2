@@ -83,11 +83,11 @@ int main() {
     cout << "Value at index 6: " << (*index_6_value).data << endl;*/
 
     // Testing copy constructor
-    LinkedList<int> LLI_copy = LLI;
+    LinkedList<int> LLI_copy_construct = LLI;
 
     // Testing copy assignment operator
-    LinkedList<int> LLI_deep_copy;
-    LLI_deep_copy = LLI;
+    LinkedList<int> LLI_copy_assign;
+    LLI_copy_assign = LLI;
 
     cout << "end" << endl;
     return 0;

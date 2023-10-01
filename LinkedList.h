@@ -80,6 +80,7 @@ public:
             this->AddTail(currentNode->data);
             currentNode = currentNode->next;
         }
+        delete currentNode;
         return *this;
     }
     ~LinkedList() {
