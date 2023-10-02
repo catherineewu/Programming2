@@ -411,6 +411,7 @@ public:
         else if (this->_size == 1) {
             delete head;
             head = nullptr;
+            tail = nullptr;
             this->_size -= 1;
             return true;
         }
@@ -429,6 +430,7 @@ public:
         }
         else if (this->_size == 1) {
             delete tail;
+            head = nullptr;
             tail = nullptr;
             this->_size -= 1;
             return true;
@@ -485,15 +487,12 @@ public:
                 for (unsigned int i=0;i<index;i++) {
                     currentNode = currentNode->next;
                 }
-                Node* priorNode = nullptr;
-                Node* followingNode = nullptr;
-                priorNode = currentNode->prev;
-                followingNode = currentNode->next;
+                Node* priorNode = currentNode->prev;
+                Node* followingNode = currentNode->next;
                 priorNode->next = followingNode;
                 followingNode->prev = priorNode;
                 delete currentNode;
-                priorNode = nullptr;
-                followingNode = nullptr;
+                currentNode = nullptr;
                 this->_size -= 1;
             }
             return true;
@@ -501,6 +500,7 @@ public:
     }  // FIXME
     void Clear() {
         Node* currentNode = this->head;  // currentNode is temp. variable that iterates through nodes
+
         while (currentNode != nullptr) {
             if (currentNode->next != nullptr) {
                 currentNode = currentNode->next;
