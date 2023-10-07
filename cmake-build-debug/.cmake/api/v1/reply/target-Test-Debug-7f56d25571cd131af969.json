@@ -73,7 +73,8 @@
 				27,
 				28,
 				29,
-				31
+				31,
+				35
 			]
 		}
 	],
@@ -130,7 +131,8 @@
 				27,
 				28,
 				29,
-				31
+				31,
+				35
 			]
 		},
 		{
@@ -144,6 +146,15 @@
 				22,
 				26,
 				30
+			]
+		},
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				32,
+				33,
+				34
 			]
 		}
 	],
@@ -332,6 +343,27 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "Lab 4 - Binary File Input:Output/main.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Lab 4 - Binary File Input:Output/main",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Lab 4 - Binary File Input:Output/enemyships.shp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Lab 4 - Binary File Input:Output/friendlyships.shp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Lab 4 - Binary File Input:Output/test.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

@@ -23,6 +23,7 @@ public:
     short length;
     int shield;
     float warp;
+    int total_power;
     vector<Weapon> weapons;
     Spaceship(string name, string ship_class, short length, int shield, float warp, vector<Weapon> weapons) {
         this->name = name;
@@ -31,12 +32,18 @@ public:
         this->shield = shield;
         this->warp = warp;
         this->weapons = weapons;
+
+        for (int i=0;i<weapons.size();i++) {
+            total_power += weapons[i].power;
+        }
     }
+    void PrintShip() const;
 };
 
-vector<Spaceship> OpenShipFile(string file_name) {
-    ifstream ship(file_name, ios_base::binary);  // open binary file storing ships
-    vector<Spaceship> ship_store;
+void OpenShipFile(string file_name, vector<Spaceship>& ship_store) {
+    file_name = "C:\\" + file_name;
+    ifstream ship;
+    ship.open(file_name, ios_base::binary);  // open binary file storing ships
 
     int ships;  // count of # of ships in file
     int name_length;  // length of name, including null terminator
@@ -113,11 +120,36 @@ vector<Spaceship> OpenShipFile(string file_name) {
             Spaceship current_ship(name, ship_class, length, shield, warp, weapon_store);
             ship_store.push_back(current_ship);
         }
-        return ship_store;
     }
 }
 
-int main()
+void Spaceship::PrintShip () const {
+    cout << "Name: " << name << endl;
+    cout << "Class: " << ship_class << endl;
+    cout << "Length: " << length << endl;
+    cout << "Shield capacity: " << shield << endl;
+    cout << "Maximum warp: " << warp << endl;
+    cout << "Armaments:" << endl;
+    if (weapons.empty()) {
+        cout << "Unarmed" << endl;
+    } else {
+        for (int f = 0; f < weapons.size(); f++) {
+            cout << weapons[f].name;
+            cout << ", " << weapons[f].power;
+            cout << ", " << weapons[f].power_consumption;
+            cout << endl;
+        }
+        cout << "Total firepower: " << total_power << endl;
+    }
+    cout << endl;
+}
+void PrintShips (const vector<Spaceship>& ships) {
+    for (int i=0;i<ships.size();i++) {
+        ships[i].PrintShip();
+    }
+};
+
+int main_lab_4()
 {
 	cout << "Which file(s) to open?\n";
 	cout << "1. friendlyships.shp" << endl;
@@ -126,15 +158,15 @@ int main()
 	int option;
 	cin >> option;
 
-    string file_name;
-    bool both;
+    vector<Spaceship> ships;
+
     if (option == 1) {
-        vector<Spaceship> friendly_ships = OpenShipFile("friendlyships.shp");
+        OpenShipFile("friendlyships.shp", ships);
     } else if (option == 2) {
-        vector<Spaceship> enemy_ships = OpenShipFile("enemyships.shp");
+        OpenShipFile("enemyships.shp", ships);
     } else if (option == 3) {
-        vector<Spaceship> friendly_ships = OpenShipFile("friendlyships.shp");
-        vector<Spaceship> enemy_ships = OpenShipFile("enemyships.shp");
+        OpenShipFile("friendlyships.shp", ships);
+        OpenShipFile("enemyships.shp", ships);
     }
 
 	cout << "1. Print all ships" << endl;
@@ -144,6 +176,12 @@ int main()
 	cout << "5. Unarmed ships" << endl;
 	
 	cin >> option;
+
+    if (option == 1) {
+        PrintShips(ships);
+    } else if (option == 2) {
+
+    }
 	
 	/* Work your magic here */
 	

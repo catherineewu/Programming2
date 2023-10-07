@@ -36,4 +36,10 @@ add_executable(Test lab3_main_stack.cpp
         "Lab 4 - Binary File Input:Output/extrafile.cpp"
         "Lab 4 - Binary File Input:Output/extrafile.h"
         "Lab 4 - Binary File Input:Output/main.cpp"
+        "Lab 4 - Binary File Input:Output/main"
+        "Lab 4 - Binary File Input:Output/enemyships.shp"
+        "Lab 4 - Binary File Input:Output/friendlyships.shp"
+        "Lab 4 - Binary File Input:Output/test.cpp"
+
+
 )
