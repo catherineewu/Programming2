@@ -2,16 +2,12 @@
 using namespace std;  // for testing purposes
 #pragma once
 
-/**
- * Notes:
+/**Notes:
  * Since array capacity doesn't change with every addition and deletion of data elements, size is used to keep track of
- * number of 'used' and non-empty elements of the queue. 'Empty' elements aren't actually empty, but have default value of 0.
-*/
-
+ * number of 'used' and non-empty elements of the queue. 'Empty' elements aren't actually empty, but have default value of 0.*/
 template <class T>
 class ABQ
-{
-private:
+{private:
     bool copy = false;  // tracks whether instance is a copy, avoids destructor being called twice on same data
 public:
     /// INITIALIZE ATTRIBUTES

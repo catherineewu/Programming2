@@ -95,34 +95,6 @@ public:
     ~LinkedList() {
         // Destructor
         // cout << "destructor called" << endl;
-        /**if (this->_copy == true) {
-            // cout << "constructed copy - destructor skipped" << endl;
-            Node* currentNode = this->head;
-            while (currentNode != nullptr) {
-                if (currentNode->prev != nullptr) {
-                    currentNode = currentNode->prev;
-                    delete currentNode->next;
-                } else {
-                    delete currentNode;
-                    currentNode = nullptr;
-                    head = nullptr;
-                    tail = nullptr;
-                }
-            }
-        } else {
-            Node* currentNode = this->head;  // currentNode is temp. variable that iterates through nodes
-            while (currentNode != nullptr) {
-                if (currentNode->next != nullptr) {
-                    currentNode = currentNode->next;
-                    delete currentNode->prev;
-                } else {
-                    delete currentNode;
-                    currentNode = nullptr;
-                    head = nullptr;
-                    tail = nullptr;
-                }
-            }
-        }*/
         Node* currentNode = this->head;  // currentNode is temp. variable that iterates through nodes
         while (currentNode != nullptr) {
             if (currentNode->next != nullptr) {
@@ -514,4 +486,16 @@ public:
         }
         this->_size = 0;
     }  // FIXME
+
+    // class example:
+    void OddSum(int& value) {
+        Node* currentNode = head;
+        int counter = 0;
+        while (currentNode != nullptr) {
+            if (counter%2 == 1) {
+                value += currentNode->data;
+            }
+            currentNode = currentNode->next;
+        }
+    }
 };

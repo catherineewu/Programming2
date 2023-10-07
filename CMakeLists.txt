@@ -31,4 +31,9 @@ add_executable(Test lab3_main_stack.cpp
         notes_pointers.cpp
         project_1_testing.cpp
         saved.h
+        midterm_review.cpp
+        notes_serialization.cpp
+        "Lab 4 - Binary File Input:Output/extrafile.cpp"
+        "Lab 4 - Binary File Input:Output/extrafile.h"
+        "Lab 4 - Binary File Input:Output/main.cpp"
 )

@@ -10,7 +10,7 @@ void TestOtherRemoval();
 void TestRecursion();
 bool TestClear();
 
-int main()
+int main_main()
 {
     int testNum;
     cin >> testNum;
