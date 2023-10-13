@@ -74,7 +74,8 @@
 				28,
 				29,
 				31,
-				35
+				35,
+				36
 			]
 		}
 	],
@@ -132,7 +133,8 @@
 				28,
 				29,
 				31,
-				35
+				35,
+				36
 			]
 		},
 		{
@@ -364,6 +366,12 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "Lab 4 - Binary File Input:Output/test.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "notes_command_line_arguments.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

@@ -73,9 +73,16 @@ void PrintShips(vector<Spaceship>& ship_vector) {
     }
 }
 void PrintUnarmedShips(vector<Spaceship>& ship_vector) {
-    for (int i=0;i<ship_vector.size();i++) {
+    vector<Spaceship> unarmed_ships;
+    for (int i = 0; i < ship_vector.size(); i++) {
         if (ship_vector[i].total_power == 0) {
-            ship_vector[i].PrintShip();
+            unarmed_ships.push_back(ship_vector[i]);
+        }
+    }
+    for (int j = 0; j < unarmed_ships.size(); j++) {
+        unarmed_ships[j].PrintShip();
+        if (j != (unarmed_ships.size() - 1)) {
+            cout << endl << endl;
         }
     }
 }
@@ -84,7 +91,6 @@ void OpenShipFile(string file_name, vector<Spaceship>& ship_vector) {
     ifstream shipFile(file_name, ios_base::binary | ios_base::in);
     if (shipFile.is_open()) {
         int ship_count;
-        /** SHIP COUNT: 4 BYTES */
         shipFile.read(reinterpret_cast<char*>(&ship_count), 4);
         for (int i=0;i<ship_count;i++) {
             int name_length;
@@ -96,20 +102,16 @@ void OpenShipFile(string file_name, vector<Spaceship>& ship_vector) {
             float warp;
             int weapon_count;
 
-            /** NAME LENGTH: 4 BYTES */
             shipFile.read(reinterpret_cast<char*>(&name_length), 4);
 
-            /** NAME STRING: 1 BYTE X NAME LENGTH */
             for (int j=0;j<name_length;j++) {
                 char temp;
                 shipFile.read(reinterpret_cast<char *>(&temp), 1);
                 name += temp;
             }
 
-            /** CLASS LENGTH: 4 BYTES */
             shipFile.read(reinterpret_cast<char*>(&class_length), 4);
 
-            /** CLASS STRING: 1 BYTE x CLASS LENGTH */
             for (int j=0;j<class_length;j++) {
                 char temp;
                 shipFile.read(reinterpret_cast<char *>(&temp), 1);
@@ -192,7 +194,7 @@ Spaceship* FindWeakest(vector<Spaceship>& ship_vector) {
     return least_powerful_ship;
 }
 
-int main() {
+int main_test() {
     cout << "Which file(s) to open?\n";
     cout << "1. friendlyships.shp" << endl;
     cout << "2. enemyships.shp" << endl;

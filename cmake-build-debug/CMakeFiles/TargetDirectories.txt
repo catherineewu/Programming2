@@ -1,3 +1,4 @@
 /Users/catherinewu/CLionProjects/Programming2/cmake-build-debug/CMakeFiles/Test.dir
+/Users/catherinewu/CLionProjects/Programming2/cmake-build-debug/CMakeFiles/new_target.dir
 /Users/catherinewu/CLionProjects/Programming2/cmake-build-debug/CMakeFiles/edit_cache.dir
 /Users/catherinewu/CLionProjects/Programming2/cmake-build-debug/CMakeFiles/rebuild_cache.dir

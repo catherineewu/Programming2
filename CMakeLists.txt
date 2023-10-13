@@ -40,6 +40,7 @@ add_executable(Test lab3_main_stack.cpp
         "Lab 4 - Binary File Input:Output/enemyships.shp"
         "Lab 4 - Binary File Input:Output/friendlyships.shp"
         "Lab 4 - Binary File Input:Output/test.cpp"
-
-
+        notes_command_line_arguments.cpp
 )
+add_executable(new_target notes_command_line_arguments.cpp
+        grip_arduino.cpp)

@@ -205,6 +205,12 @@ build CMakeFiles/Test.dir/Lab_4_-_Binary_File_Input_Output/test.cpp.o: CXX_COMPI
   OBJECT_DIR = CMakeFiles/Test.dir
   OBJECT_FILE_DIR = CMakeFiles/Test.dir/Lab_4_-_Binary_File_Input_Output
 
+build CMakeFiles/Test.dir/notes_command_line_arguments.cpp.o: CXX_COMPILER__Test_unscanned_Debug /Users/catherinewu/CLionProjects/Programming2/notes_command_line_arguments.cpp || cmake_object_order_depends_target_Test
+  DEP_FILE = CMakeFiles/Test.dir/notes_command_line_arguments.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.2 -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/Test.dir
+  OBJECT_FILE_DIR = CMakeFiles/Test.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Test
@@ -213,13 +219,50 @@ build CMakeFiles/Test.dir/Lab_4_-_Binary_File_Input_Output/test.cpp.o: CXX_COMPI
 #############################################
 # Link the executable Test
 
-build Test: CXX_EXECUTABLE_LINKER__Test_Debug CMakeFiles/Test.dir/lab3_main_stack.cpp.o CMakeFiles/Test.dir/fruit_sale.cpp.o CMakeFiles/Test.dir/notes_classes.cpp.o CMakeFiles/Test.dir/notes_dynamic_memory_heap.cpp.o CMakeFiles/Test.dir/notes_big_three_example.cpp.o CMakeFiles/Test.dir/notes_big_three.cpp.o CMakeFiles/Test.dir/notes_templates.cpp.o CMakeFiles/Test.dir/notes_operator_overloading.cpp.o CMakeFiles/Test.dir/lab3_original_code.cpp.o CMakeFiles/Test.dir/lab3_testing_code.cpp.o CMakeFiles/Test.dir/lab3_main_queue.cpp.o CMakeFiles/Test.dir/notes_const_keyword.cpp.o CMakeFiles/Test.dir/notes_file_io.cpp.o CMakeFiles/Test.dir/notes_linked_lists.cpp.o CMakeFiles/Test.dir/notes_linked_list_operations.cpp.o CMakeFiles/Test.dir/notes_binary_file_io.cpp.o CMakeFiles/Test.dir/notes_reading_writing_files.cpp.o CMakeFiles/Test.dir/demo_binary_io.cpp.o CMakeFiles/Test.dir/project_1.cpp.o CMakeFiles/Test.dir/notes_pointers.cpp.o CMakeFiles/Test.dir/project_1_testing.cpp.o CMakeFiles/Test.dir/midterm_review.cpp.o CMakeFiles/Test.dir/notes_serialization.cpp.o CMakeFiles/Test.dir/Lab_4_-_Binary_File_Input_Output/extrafile.cpp.o CMakeFiles/Test.dir/Lab_4_-_Binary_File_Input_Output/main.cpp.o CMakeFiles/Test.dir/Lab_4_-_Binary_File_Input_Output/test.cpp.o
+build Test: CXX_EXECUTABLE_LINKER__Test_Debug CMakeFiles/Test.dir/lab3_main_stack.cpp.o CMakeFiles/Test.dir/fruit_sale.cpp.o CMakeFiles/Test.dir/notes_classes.cpp.o CMakeFiles/Test.dir/notes_dynamic_memory_heap.cpp.o CMakeFiles/Test.dir/notes_big_three_example.cpp.o CMakeFiles/Test.dir/notes_big_three.cpp.o CMakeFiles/Test.dir/notes_templates.cpp.o CMakeFiles/Test.dir/notes_operator_overloading.cpp.o CMakeFiles/Test.dir/lab3_original_code.cpp.o CMakeFiles/Test.dir/lab3_testing_code.cpp.o CMakeFiles/Test.dir/lab3_main_queue.cpp.o CMakeFiles/Test.dir/notes_const_keyword.cpp.o CMakeFiles/Test.dir/notes_file_io.cpp.o CMakeFiles/Test.dir/notes_linked_lists.cpp.o CMakeFiles/Test.dir/notes_linked_list_operations.cpp.o CMakeFiles/Test.dir/notes_binary_file_io.cpp.o CMakeFiles/Test.dir/notes_reading_writing_files.cpp.o CMakeFiles/Test.dir/demo_binary_io.cpp.o CMakeFiles/Test.dir/project_1.cpp.o CMakeFiles/Test.dir/notes_pointers.cpp.o CMakeFiles/Test.dir/project_1_testing.cpp.o CMakeFiles/Test.dir/midterm_review.cpp.o CMakeFiles/Test.dir/notes_serialization.cpp.o CMakeFiles/Test.dir/Lab_4_-_Binary_File_Input_Output/extrafile.cpp.o CMakeFiles/Test.dir/Lab_4_-_Binary_File_Input_Output/main.cpp.o CMakeFiles/Test.dir/Lab_4_-_Binary_File_Input_Output/test.cpp.o CMakeFiles/Test.dir/notes_command_line_arguments.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.2
   OBJECT_DIR = CMakeFiles/Test.dir
   POST_BUILD = :
   PRE_LINK = :
   TARGET_FILE = Test
   TARGET_PDB = Test.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target new_target
+
+
+#############################################
+# Order-only phony target for new_target
+
+build cmake_object_order_depends_target_new_target: phony || CMakeFiles/new_target.dir
+
+build CMakeFiles/new_target.dir/notes_command_line_arguments.cpp.o: CXX_COMPILER__new_target_unscanned_Debug /Users/catherinewu/CLionProjects/Programming2/notes_command_line_arguments.cpp || cmake_object_order_depends_target_new_target
+  DEP_FILE = CMakeFiles/new_target.dir/notes_command_line_arguments.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.2 -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/new_target.dir
+  OBJECT_FILE_DIR = CMakeFiles/new_target.dir
+
+build CMakeFiles/new_target.dir/grip_arduino.cpp.o: CXX_COMPILER__new_target_unscanned_Debug /Users/catherinewu/CLionProjects/Programming2/grip_arduino.cpp || cmake_object_order_depends_target_new_target
+  DEP_FILE = CMakeFiles/new_target.dir/grip_arduino.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.2 -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/new_target.dir
+  OBJECT_FILE_DIR = CMakeFiles/new_target.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target new_target
+
+
+#############################################
+# Link the executable new_target
+
+build new_target: CXX_EXECUTABLE_LINKER__new_target_Debug CMakeFiles/new_target.dir/notes_command_line_arguments.cpp.o CMakeFiles/new_target.dir/grip_arduino.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.2
+  OBJECT_DIR = CMakeFiles/new_target.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = new_target
+  TARGET_PDB = new_target.dbg
 
 
 #############################################
@@ -255,7 +298,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Folder: /Users/catherinewu/CLionProjects/Programming2/cmake-build-debug
 
-build all: phony Test
+build all: phony Test new_target
 
 # =============================================================================
 # Built-in targets
